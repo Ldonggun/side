@@ -1,7 +1,7 @@
-import React from 'react';
-import './app.css';
+import React from "react";
+import "./app.css";
 //components
-import { Modal } from './components/index';
+import { Modal } from "./components/index";
 
 function App() {
   return (
