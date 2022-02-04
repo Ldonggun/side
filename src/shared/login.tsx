@@ -1,8 +1,17 @@
-import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
+import {
+  getAuth,
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+} from 'firebase/auth';
 class AuthService {
-  signUpWithEmail = (email: string, password: string) => {
+  signUpEmail = (email: string, password: string) => {
     const auth = getAuth();
     return createUserWithEmailAndPassword(auth, email, password);
+  };
+
+  signInEmail = (email: string, password: string) => {
+    const auth = getAuth();
+    return signInWithEmailAndPassword(auth, email, password);
   };
 }
 

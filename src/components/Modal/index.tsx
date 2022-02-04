@@ -6,25 +6,44 @@ const Modal = ({ authService }: any) => {
   const emailRef = useRef<HTMLInputElement>(null);
   const passWordRef = useRef<HTMLInputElement>(null);
   const [visible, setVisible] = useState(true);
+  const [isEmailLogin, setIsEmailLogin] = useState(false);
 
   const signUpWithEmail = (e: React.MouseEvent<HTMLElement>) => {
     e.preventDefault();
     authService //
-      .signUpWithEmail(emailRef.current?.value, passWordRef.current?.value)
+      .signUpEmail(emailRef.current?.value, passWordRef.current?.value)
       .then((result: string) => {
         result && window.alert('회원가입 완료');
         setVisible(true);
       })
-      .catch((error: { message: string }) => {
-        const errorMessage = error.message;
-        console.log(errorMessage);
+      .catch((error: { message: string; code: string }) => {
+        const errorCode = error.code;
+        console.log(errorCode);
       });
   };
+
+  const signInWithEmail = (e: React.MouseEvent<HTMLElement>) => {
+    e.preventDefault();
+    authService //
+      .signInEmail(emailRef.current?.value, passWordRef.current?.value)
+      .then((result: string) => {
+        setIsEmailLogin(false);
+        setVisible(true);
+      })
+      .catch((error: { message: string; code: string }) => {
+        const errorCode = error.code;
+        if (errorCode === 'auth/wrong-password') {
+          window.alert('비밀번호가 잘 못 되었습니다.');
+        }
+      });
+  };
+
   const handleSignUpClick = () => {
     setVisible(false);
   };
   const handleSignInClick = () => {
     setVisible(false);
+    setIsEmailLogin(true);
   };
 
   return (
@@ -56,7 +75,11 @@ const Modal = ({ authService }: any) => {
                   placeholder='패스워드'
                   ref={passWordRef}
                 />
-                <button onClick={signUpWithEmail}>회원가입</button>
+                {isEmailLogin ? (
+                  <button onClick={signInWithEmail}>로그인</button>
+                ) : (
+                  <button onClick={signUpWithEmail}>회원가입</button>
+                )}
               </form>
             </section>
           )}
