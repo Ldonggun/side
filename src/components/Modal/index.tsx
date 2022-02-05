@@ -52,7 +52,7 @@ const Modal = ({ authService }: any) => {
         <div className={style.inner}>
           {visible ? (
             <section className={style.buttonSection}>
-              <img src={googleLogin} />
+              <img src={googleLogin} alt='googleImg' />
               <div className={style.emailLogin}>
                 <p>
                   이메일 <span onClick={handleSignUpClick}>회원가입 /</span>
