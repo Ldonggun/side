@@ -6,10 +6,8 @@ import { Modal, NavBar, UserList } from './components/index';
 import { Home } from './pages/index';
 function App({ authService }: any) {
   const [visibleLoginModal, setVisibleLoginModal] = useState(false);
-  useEffect(() => {
-    authService //
-      .getUserInfo();
-  });
+  const [visibleUserStatus, setVisibleUserStatus] = useState(false);
+  const [isLogin, setIsLogin] = useState(null);
   const logOut = () => {
     authService //
       .logOut();
@@ -17,16 +15,29 @@ function App({ authService }: any) {
   const openModal = () => {
     setVisibleLoginModal(true);
   };
+  const openUser = () => {
+    setVisibleUserStatus(!visibleUserStatus);
+  };
+
+  useEffect(() => {
+    authService //
+      .getUserInfo(setIsLogin);
+  });
+
   return (
     <>
-      <NavBar openModal={openModal} />
-      <UserList />
+      <NavBar
+        openModal={openModal}
+        openUser={openUser}
+        isLogin={isLogin}
+        logOut={logOut}
+      />
+      {visibleUserStatus && <UserList />}
       {visibleLoginModal && (
         <Modal authService={authService} closeModal={setVisibleLoginModal} />
       )}
       <div className={style.wrap}>
         <Home />
-        {/* <button onClick={logOut}>로그아웃</button> */}
       </div>
     </>
   );

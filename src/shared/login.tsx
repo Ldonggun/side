@@ -16,13 +16,15 @@ class AuthService {
     return signInWithEmailAndPassword(auth, email, password);
   };
 
-  getUserInfo = () => {
+  getUserInfo = (setIsLogin: (x: boolean) => {}) => {
     const auth = getAuth();
     onAuthStateChanged(auth, user => {
       if (user) {
         const uid = user.uid;
-        console.log(uid);
+        setIsLogin(true);
+        return uid;
       } else {
+        setIsLogin(false);
       }
     });
   };

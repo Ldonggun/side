@@ -29,6 +29,7 @@ const Modal = ({ authService, closeModal }: any) => {
       .then((result: string) => {
         setIsEmailLogin(false);
         setVisible(true);
+        closeModal();
       })
       .catch((error: { message: string; code: string }) => {
         const errorCode = error.code;
