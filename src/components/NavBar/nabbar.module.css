@@ -1,0 +1,35 @@
+.navBar {
+  width: 4em;
+  height: 100vh;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  border: 1px solid grey;
+
+  position: fixed;
+  left: 0;
+}
+
+.category {
+  list-style: none;
+  padding: 0px;
+  margin: 0px;
+  padding-top: 4em;
+}
+
+.element {
+  width: 4em;
+  text-align: center;
+  padding: 5px 0px;
+}
+
+.element > p {
+  margin: 0px;
+  font-size: smaller;
+}
+
+.element:hover {
+  background-color: rgb(236, 236, 236);
+}

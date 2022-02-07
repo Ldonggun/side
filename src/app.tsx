@@ -1,8 +1,9 @@
 import React, { useEffect } from 'react';
-import './app.css';
+import style from './app.module.css';
 //components
-import { Modal } from './components/index';
-
+import { Modal, NavBar } from './components/index';
+//page
+import { Home } from './pages/index';
 function App({ authService }: any) {
   useEffect(() => {
     authService //
@@ -13,11 +14,12 @@ function App({ authService }: any) {
       .logOut();
   };
   return (
-    <>
-      <h1>Hello :)</h1>
-      <button onClick={logOut}>로그아웃</button>
+    <div className={style.wrap}>
+      <NavBar />
+      <Home />
+      {/* <button onClick={logOut}>로그아웃</button> */}
       {/* <Modal authService={authService} /> */}
-    </>
+    </div>
   );
 }
 

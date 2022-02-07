@@ -1,3 +1,3 @@
 import Modal from './Modal';
-
-export { Modal };
+import NavBar from './NavBar';
+export { Modal, NavBar };
