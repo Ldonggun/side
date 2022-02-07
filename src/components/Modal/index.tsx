@@ -2,7 +2,7 @@ import React, { useRef, useState } from 'react';
 import style from './modal.module.css';
 import googleLogin from '../../assets/image/btn_google_signin_light_normal_web.png';
 
-const Modal = ({ authService }: any) => {
+const Modal = ({ authService, closeModal }: any) => {
   const emailRef = useRef<HTMLInputElement>(null);
   const passWordRef = useRef<HTMLInputElement>(null);
   const [visible, setVisible] = useState(true);
@@ -45,10 +45,12 @@ const Modal = ({ authService }: any) => {
     setVisible(false);
     setIsEmailLogin(true);
   };
-
+  const onClose = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (e.target === e.currentTarget) closeModal();
+  };
   return (
     <>
-      <div className={style.outer}>
+      <div className={style.outer} onClick={onClose}>
         <div className={style.inner}>
           {visible ? (
             <section className={style.buttonSection}>
