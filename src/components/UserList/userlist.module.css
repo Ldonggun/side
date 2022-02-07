@@ -1,0 +1,11 @@
+.userList {
+  width: 230px;
+  height: 100vh;
+
+  padding: 12px;
+  background-color: rgb(70, 71, 71);
+
+  position: fixed;
+  right: 0;
+  top: 0;
+}

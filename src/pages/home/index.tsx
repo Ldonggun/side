@@ -2,7 +2,7 @@ import React from 'react';
 import style from './home.module.css';
 
 const Home = () => {
-  return <div>ddddd</div>;
+  return <div></div>;
 };
 
 export default Home;

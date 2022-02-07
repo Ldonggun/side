@@ -6,4 +6,5 @@
 
   position: fixed;
   left: 4.5em;
+  z-index: -100;
 }

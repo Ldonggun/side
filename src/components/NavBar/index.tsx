@@ -1,7 +1,7 @@
 import React from 'react';
+import style from './nabbar.module.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHome, faSignInAlt, faUser } from '@fortawesome/free-solid-svg-icons';
-import style from './nabbar.module.css';
 
 const NavBar = () => {
   return (

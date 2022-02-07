@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import style from './app.module.css';
 //components
-import { Modal, NavBar } from './components/index';
+import { Modal, NavBar, UserList } from './components/index';
 //page
 import { Home } from './pages/index';
 function App({ authService }: any) {
@@ -14,12 +14,15 @@ function App({ authService }: any) {
       .logOut();
   };
   return (
-    <div className={style.wrap}>
+    <>
       <NavBar />
-      <Home />
-      {/* <button onClick={logOut}>로그아웃</button> */}
-      {/* <Modal authService={authService} /> */}
-    </div>
+      <UserList />
+      <div className={style.wrap}>
+        <Home />
+        {/* <button onClick={logOut}>로그아웃</button> */}
+        {/* <Modal authService={authService} /> */}
+      </div>
+    </>
   );
 }
 

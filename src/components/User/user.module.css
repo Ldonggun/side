@@ -1,0 +1,26 @@
+.user {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  padding: 6px;
+  cursor: pointer;
+}
+
+.userImg {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+}
+
+.userId {
+  font-size: smaller;
+  margin: 0;
+  padding: 0 3px;
+}
+
+.userStatus {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: rgb(28, 250, 28);
+}
