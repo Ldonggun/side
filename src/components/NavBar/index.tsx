@@ -1,13 +1,26 @@
 import React from 'react';
 import style from './nabbar.module.css';
+import { useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faHome, faSignInAlt, faUser } from '@fortawesome/free-solid-svg-icons';
+import {
+  faHome,
+  faSignInAlt,
+  faUser,
+  faCog,
+} from '@fortawesome/free-solid-svg-icons';
 
 const NavBar = ({ openModal, openUser, isLogin, logOut }: any) => {
+  const navigate = useNavigate();
+  const moveSetting = () => {
+    navigate('/setting');
+  };
+  const moveHome = () => {
+    navigate('/');
+  };
   return (
     <nav className={style.navBar}>
       <ul className={style.category}>
-        <li className={style.element}>
+        <li className={style.element} onClick={moveHome}>
           <FontAwesomeIcon icon={faHome} size='2x' />
           <p>홈</p>
         </li>
@@ -18,6 +31,10 @@ const NavBar = ({ openModal, openUser, isLogin, logOut }: any) => {
         <li className={style.element} onClick={openUser}>
           <FontAwesomeIcon icon={faUser} size='2x' />
           <p>유저</p>
+        </li>
+        <li className={style.element} onClick={moveSetting}>
+          <FontAwesomeIcon icon={faCog} size='2x' />
+          <p>설정</p>
         </li>
       </ul>
     </nav>
