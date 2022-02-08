@@ -11,8 +11,10 @@ import {
 
 const NavBar = ({ openModal, openUser, isLogin, logOut }: any) => {
   const navigate = useNavigate();
+
   const moveSetting = () => {
-    navigate('/setting');
+    if (isLogin) navigate('/setting');
+    else window.alert('로그인이 필요합니다');
   };
   const moveHome = () => {
     navigate('/');
