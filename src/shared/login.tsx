@@ -32,8 +32,10 @@ class AuthService {
   logOut = () => {
     const auth = getAuth();
     signOut(auth)
-      .then(() => {})
-      .catch(error => {});
+      .then(result => {})
+      .catch(error => {
+        console.log(error);
+      });
   };
 }
 

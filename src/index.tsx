@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './app';
+import { BrowserRouter } from 'react-router-dom';
 import { app } from './shared/firebase';
 import AuthService from './shared/login';
 import DataBase from './shared/database';
@@ -14,12 +15,14 @@ const fireStore = new FireStore();
 const upload = new Upload();
 ReactDOM.render(
   <React.StrictMode>
-    <App
-      authService={authService}
-      dataBase={dataBase}
-      fireStore={fireStore}
-      upload={upload}
-    />
+    <BrowserRouter>
+      <App
+        authService={authService}
+        dataBase={dataBase}
+        fireStore={fireStore}
+        upload={upload}
+      />
+    </BrowserRouter>
   </React.StrictMode>,
   document.getElementById('root'),
 );

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import style from './app.module.css';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { Routes, Route, useNavigate } from 'react-router-dom';
 //components
 import { Modal, NavBar, UserList } from './components/index';
 //page
@@ -10,10 +10,11 @@ function App({ authService, dataBase, fireStore, upload }: any) {
   const [visibleUserStatus, setVisibleUserStatus] = useState(false);
   const [uid, setUid] = useState(null);
   const [isLogin, setIsLogin] = useState(null);
-
+  const navigate = useNavigate();
   const logOut = () => {
     authService //
       .logOut();
+    navigate('/');
   };
   const openModal = () => {
     setVisibleLoginModal(true);
@@ -28,7 +29,7 @@ function App({ authService, dataBase, fireStore, upload }: any) {
   });
 
   return (
-    <BrowserRouter>
+    <>
       <NavBar
         openModal={openModal}
         openUser={openUser}
@@ -54,7 +55,7 @@ function App({ authService, dataBase, fireStore, upload }: any) {
           />
         </Routes>
       </div>
-    </BrowserRouter>
+    </>
   );
 }
 
