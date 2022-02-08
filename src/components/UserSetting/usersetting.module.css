@@ -1,0 +1,31 @@
+.UserInfo {
+  width: 100%;
+  display: flex;
+  justify-content: left;
+  align-items: center;
+  padding: 26px;
+}
+
+.img {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  border: 1px solid rgb(218, 218, 218);
+}
+
+.submit {
+  display: none;
+}
+
+.fakeBtn {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  border: 1px solid rgb(218, 218, 218);
+
+  position: relative;
+  left: -35px;
+  top: 50px;
+
+  cursor: pointer;
+}
