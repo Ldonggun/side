@@ -3,7 +3,11 @@ import style from './usersetting.module.css';
 import defaultImg from '../../assets/image/defaultimg.jpg';
 import cameraImg from '../../assets/image/cameraIcon.jpg';
 
-const UserSetting = () => {
+const UserSetting = ({ upload }: any) => {
+  const addImg = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const imageFile = e.target.files && e.target.files[0];
+    upload(imageFile);
+  };
   return (
     <div className={style.UserInfo}>
       <img src={defaultImg} alt='userImage' className={style.img} />
@@ -12,6 +16,7 @@ const UserSetting = () => {
         accept='image/*'
         id='upload'
         className={style.submit}
+        onChange={addImg}
       />
       <label htmlFor='upload'>
         <img src={cameraImg} alt='imgbutton' className={style.fakeBtn} />

@@ -1,9 +1,15 @@
 import React from 'react';
 import style from './setting.module.css';
-const Setting = () => {
+//components
+import { UserSetting } from '../../components';
+const Setting = ({ upload }: any) => {
+  console.log(upload);
+  const uploadImage = (file: string) => {
+    upload.imageUpload(file);
+  };
   return (
     <>
-      <div>유저페이지</div>
+      <UserSetting upload={uploadImage} />
     </>
   );
 };
