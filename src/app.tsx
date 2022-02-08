@@ -12,7 +12,7 @@ function App({ authService, dataBase, fireStore, upload }: any) {
   const [userInfo, setUserInfo] = useState(null);
   const [isLogin, setIsLogin] = useState(null);
   const navigate = useNavigate();
-
+  console.log(userInfo);
   const logOut = () => {
     authService //
       .logOut();
@@ -32,7 +32,7 @@ function App({ authService, dataBase, fireStore, upload }: any) {
 
   useEffect(() => {
     if (uid) fireStore.getUserInfo(uid, setUserInfo);
-  }, [uid]);
+  }, [uid, fireStore]);
 
   return (
     <>
@@ -61,6 +61,7 @@ function App({ authService, dataBase, fireStore, upload }: any) {
                 fireStore={fireStore}
                 uid={uid}
                 userInfo={userInfo}
+                setUserInfo={setUserInfo}
               />
             }
           />
