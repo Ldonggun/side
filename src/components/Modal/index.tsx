@@ -2,7 +2,7 @@ import React, { useRef, useState } from 'react';
 import style from './modal.module.css';
 import googleLogin from '../../assets/image/btn_google_signin_light_normal_web.png';
 
-const Modal = ({ authService, closeModal }: any) => {
+const Modal = ({ authService, closeModal, fireStore }: any) => {
   const emailRef = useRef<HTMLInputElement>(null);
   const passWordRef = useRef<HTMLInputElement>(null);
   const [visible, setVisible] = useState(true);
@@ -12,7 +12,9 @@ const Modal = ({ authService, closeModal }: any) => {
     e.preventDefault();
     authService //
       .signUpEmail(emailRef.current?.value, passWordRef.current?.value)
-      .then((result: string) => {
+      .then((result: { user: { uid: string } }) => {
+        const uid = result.user.uid;
+        fireStore.addUserInfo({ email: emailRef.current?.value }, uid);
         result && window.alert('회원가입 완료');
         setVisible(true);
       })

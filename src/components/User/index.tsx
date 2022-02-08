@@ -1,8 +1,7 @@
 import React from 'react';
 import style from './user.module.css';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faUser } from '@fortawesome/free-solid-svg-icons';
 import defaultImg from '../../assets/image/defaultimg.jpg';
+
 const User = () => {
   return (
     <div className={style.user}>

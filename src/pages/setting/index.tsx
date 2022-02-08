@@ -1,15 +1,18 @@
-import React from 'react';
+import React, { useState } from 'react';
 import style from './setting.module.css';
 //components
 import { UserSetting } from '../../components';
-const Setting = ({ upload }: any) => {
-  console.log(upload);
-  const uploadImage = (file: string) => {
-    upload.imageUpload(file);
+const Setting = ({ upload, fireStore, uid }: any) => {
+  const [userImgUrl, setUserImgUrl] = useState();
+  const uploadImage = async (file: string) => {
+    const uploaded = await upload.imageUpload(file);
+    setUserImgUrl(uploaded.url);
+    fireStore.addUserImage(uid, uploaded.url);
   };
+
   return (
     <>
-      <UserSetting upload={uploadImage} />
+      <UserSetting upload={uploadImage} imgUrl={userImgUrl} />
     </>
   );
 };
