@@ -3,7 +3,7 @@ import style from './usersetting.module.css';
 import defaultImg from '../../assets/image/defaultimg.jpg';
 import cameraImg from '../../assets/image/cameraIcon.jpg';
 
-const UserSetting = ({ upload, imgUrl }: any) => {
+const UserSetting = ({ upload, userInfo }: any) => {
   const addImg = (e: React.ChangeEvent<HTMLInputElement>) => {
     const imageFile = e.target.files && e.target.files[0];
     upload(imageFile);
@@ -11,7 +11,7 @@ const UserSetting = ({ upload, imgUrl }: any) => {
   return (
     <div className={style.UserInfo}>
       <img
-        src={imgUrl ? imgUrl : defaultImg}
+        src={userInfo?.url ? userInfo.url : defaultImg}
         alt='userImage'
         className={style.img}
       />
@@ -26,7 +26,7 @@ const UserSetting = ({ upload, imgUrl }: any) => {
         <img src={cameraImg} alt='imgBtn' className={style.fakeBtn} />
       </label>
       <div>
-        <h2 className={style.email}>donggun130@naver.com</h2>
+        <h2 className={style.email}>{userInfo?.email}</h2>
       </div>
     </div>
   );

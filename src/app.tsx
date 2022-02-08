@@ -9,8 +9,10 @@ function App({ authService, dataBase, fireStore, upload }: any) {
   const [visibleLoginModal, setVisibleLoginModal] = useState(false);
   const [visibleUserStatus, setVisibleUserStatus] = useState(false);
   const [uid, setUid] = useState(null);
+  const [userInfo, setUserInfo] = useState(null);
   const [isLogin, setIsLogin] = useState(null);
   const navigate = useNavigate();
+
   const logOut = () => {
     authService //
       .logOut();
@@ -27,6 +29,10 @@ function App({ authService, dataBase, fireStore, upload }: any) {
     authService //
       .getUserInfo(setIsLogin, setUid);
   });
+
+  useEffect(() => {
+    if (uid) fireStore.getUserInfo(uid, setUserInfo);
+  }, [uid]);
 
   return (
     <>
@@ -50,7 +56,12 @@ function App({ authService, dataBase, fireStore, upload }: any) {
           <Route
             path='/setting'
             element={
-              <Setting upload={upload} fireStore={fireStore} uid={uid} />
+              <Setting
+                upload={upload}
+                fireStore={fireStore}
+                uid={uid}
+                userInfo={userInfo}
+              />
             }
           />
         </Routes>
