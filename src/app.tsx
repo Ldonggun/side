@@ -8,11 +8,12 @@ import { Home, Setting } from './pages/index';
 function App({ authService, dataBase, fireStore, upload }: any) {
   const [visibleLoginModal, setVisibleLoginModal] = useState(false);
   const [visibleUserStatus, setVisibleUserStatus] = useState(false);
+  const [userList, setUserList] = useState([]);
   const [uid, setUid] = useState(null);
   const [userInfo, setUserInfo] = useState(null);
   const [isLogin, setIsLogin] = useState(null);
   const navigate = useNavigate();
-  console.log(userInfo);
+
   const logOut = () => {
     authService //
       .logOut();
@@ -32,6 +33,7 @@ function App({ authService, dataBase, fireStore, upload }: any) {
 
   useEffect(() => {
     if (uid) fireStore.getUserInfo(uid, setUserInfo);
+    fireStore.getAllUserInfo(setUserList);
   }, [uid, fireStore]);
 
   return (
@@ -42,7 +44,7 @@ function App({ authService, dataBase, fireStore, upload }: any) {
         isLogin={isLogin}
         logOut={logOut}
       />
-      {visibleUserStatus && <UserList />}
+      {visibleUserStatus && <UserList userList={userList} />}
       {visibleLoginModal && (
         <Modal
           authService={authService}

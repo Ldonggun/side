@@ -1,4 +1,11 @@
-import { collection, doc, getDoc, setDoc, updateDoc } from 'firebase/firestore';
+import {
+  collection,
+  doc,
+  getDoc,
+  getDocs,
+  setDoc,
+  updateDoc,
+} from 'firebase/firestore';
 import { db } from './firebase';
 
 class FireStore {
@@ -22,6 +29,15 @@ class FireStore {
     } else {
       console.log('No such document');
     }
+  };
+
+  getAllUserInfo = async (setUserList: (data: {}[]) => {}) => {
+    const querySnapshot = await getDocs(collection(db, 'users'));
+    const data: {}[] = [];
+    querySnapshot.forEach(doc => {
+      data.push(doc.data());
+    });
+    setUserList(data);
   };
 }
 

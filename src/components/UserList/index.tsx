@@ -3,11 +3,12 @@ import style from './userlist.module.css';
 //component
 import { User } from '../index';
 
-const UserList = () => {
+const UserList = ({ userList }: any) => {
   return (
     <section className={style.userList}>
-      <User />
-      {/* <div>userList</div> */}
+      {userList?.map((data: { email: string; url: string }) => {
+        return <User data={data} />;
+      })}
     </section>
   );
 };
