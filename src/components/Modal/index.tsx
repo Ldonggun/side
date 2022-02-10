@@ -28,7 +28,7 @@ const Modal = ({ authService, closeModal, fireStore }: any) => {
     e.preventDefault();
     authService //
       .signInEmail(emailRef.current?.value, passWordRef.current?.value)
-      .then((result: string) => {
+      .then((result: {}) => {
         setIsEmailLogin(false);
         setVisible(true);
         closeModal();

@@ -5,18 +5,19 @@ import { Routes, Route, useNavigate } from 'react-router-dom';
 import { Modal, NavBar, UserList } from './components/index';
 //page
 import { Home, Setting } from './pages/index';
-function App({ authService, dataBase, fireStore, upload }: any) {
+function App({ authService, realTimeDataBase, fireStore, upload }: any) {
   const [visibleLoginModal, setVisibleLoginModal] = useState(false);
   const [visibleUserStatus, setVisibleUserStatus] = useState(false);
   const [userList, setUserList] = useState([]);
   const [uid, setUid] = useState(null);
-  const [userInfo, setUserInfo] = useState(null);
+  const [userInfo, setUserInfo] = useState({ email: '', url: '' });
   const [isLogin, setIsLogin] = useState(null);
   const navigate = useNavigate();
 
   const logOut = () => {
     authService //
       .logOut();
+    realTimeDataBase.userStatus(uid, 'logout');
     navigate('/');
   };
   const openModal = () => {
@@ -29,12 +30,17 @@ function App({ authService, dataBase, fireStore, upload }: any) {
   useEffect(() => {
     authService //
       .getUserInfo(setIsLogin, setUid);
+    realTimeDataBase //
+      .getLoginUser();
   });
 
   useEffect(() => {
-    if (uid) fireStore.getUserInfo(uid, setUserInfo);
+    if (uid) {
+      fireStore.getUserInfo(uid, setUserInfo);
+      realTimeDataBase.userStatus(uid, 'login');
+    }
     fireStore.getAllUserInfo(setUserList);
-  }, [uid, fireStore]);
+  }, [uid, fireStore, realTimeDataBase]);
 
   return (
     <>
