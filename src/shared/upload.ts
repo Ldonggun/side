@@ -1,5 +1,9 @@
-class Upload {
-  imageUpload = async (file: string) => {
+export interface UploadType {
+  imageUpload(file: File | null): Promise<any>;
+}
+
+class Upload implements UploadType {
+  imageUpload = async (file: any) => {
     const data = new FormData();
     data.append('file', file);
     data.append('upload_preset', 'tx5olvnb');

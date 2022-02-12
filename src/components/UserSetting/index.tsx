@@ -3,7 +3,11 @@ import style from './usersetting.module.css';
 import defaultImg from '../../assets/image/defaultimg.jpg';
 import cameraImg from '../../assets/image/cameraIcon.jpg';
 
-const UserSetting = ({ upload, userInfo }: any) => {
+interface UserSettingType {
+  upload(file: File | null): void;
+  userInfo: { email: string; url: string };
+}
+const UserSetting = ({ upload, userInfo }: UserSettingType) => {
   const addImg = (e: React.ChangeEvent<HTMLInputElement>) => {
     const imageFile = e.target.files && e.target.files[0];
     upload(imageFile);

@@ -5,19 +5,38 @@ import { Routes, Route, useNavigate } from 'react-router-dom';
 import { Modal, NavBar, UserList } from './components/index';
 //page
 import { Home, Setting } from './pages/index';
-function App({ authService, realTimeDataBase, fireStore, upload }: any) {
+//type
+import { FireStoreType } from './shared/firestore';
+import { AuthServiceType } from './shared/login';
+import { RealTimeDataBaseType } from './shared/realtimedatabase';
+import { UploadType } from './shared/upload';
+import { DocumentData } from 'firebase/firestore';
+
+interface AppProps {
+  authService: AuthServiceType;
+  realTimeDataBase: RealTimeDataBaseType;
+  fireStore: FireStoreType;
+  upload: UploadType;
+}
+export type userList = {
+  email: string;
+  url: string;
+};
+function App({ authService, realTimeDataBase, fireStore, upload }: AppProps) {
   const [visibleLoginModal, setVisibleLoginModal] = useState(false);
   const [visibleUserStatus, setVisibleUserStatus] = useState(false);
-  const [userList, setUserList] = useState([]);
-  const [uid, setUid] = useState(null);
+  const [userList, setUserList] = useState<DocumentData | userList[]>([
+    { url: '', email: '' },
+  ]);
+  const [uid, setUid] = useState(String);
   const [userInfo, setUserInfo] = useState({ email: '', url: '' });
-  const [isLogin, setIsLogin] = useState(null);
+  const [isLogin, setIsLogin] = useState(Boolean);
   const navigate = useNavigate();
 
   const logOut = () => {
     authService //
       .logOut();
-    realTimeDataBase.userStatus(uid, 'logout');
+    if (uid) realTimeDataBase.userStatus(uid, 'logout');
     navigate('/');
   };
   const openModal = () => {

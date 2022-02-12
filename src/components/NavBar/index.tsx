@@ -8,8 +8,13 @@ import {
   faUser,
   faCog,
 } from '@fortawesome/free-solid-svg-icons';
-
-const NavBar = ({ openModal, openUser, isLogin, logOut }: any) => {
+interface NavBarType {
+  openModal: () => void;
+  openUser: () => void;
+  isLogin: Boolean;
+  logOut: () => void;
+}
+const NavBar = ({ openModal, openUser, isLogin, logOut }: NavBarType) => {
   const navigate = useNavigate();
 
   const moveSetting = () => {

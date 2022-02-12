@@ -1,8 +1,11 @@
 import React from 'react';
 import style from './user.module.css';
 import defaultImg from '../../assets/image/defaultimg.jpg';
-
-const User = ({ data }: any) => {
+interface UserType {
+  data: { email: string; url: string };
+}
+const User = ({ data }: UserType) => {
+  console.log(data);
   return (
     <div className={style.user}>
       <img
