@@ -12,7 +12,7 @@ import { RealTimeDataBaseType } from './shared/realtimedatabase';
 import { UploadType } from './shared/upload';
 import { DocumentData } from 'firebase/firestore';
 
-interface AppProps {
+export interface AppProps {
   authService: AuthServiceType;
   realTimeDataBase: RealTimeDataBaseType;
   fireStore: FireStoreType;
@@ -41,6 +41,9 @@ function App({ authService, realTimeDataBase, fireStore, upload }: AppProps) {
   };
   const openModal = () => {
     setVisibleLoginModal(true);
+  };
+  const closeModal = () => {
+    setVisibleLoginModal(false);
   };
   const openUser = () => {
     setVisibleUserStatus(!visibleUserStatus);
@@ -73,7 +76,7 @@ function App({ authService, realTimeDataBase, fireStore, upload }: AppProps) {
       {visibleLoginModal && (
         <Modal
           authService={authService}
-          closeModal={setVisibleLoginModal}
+          closeModal={closeModal}
           fireStore={fireStore}
         />
       )}

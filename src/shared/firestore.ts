@@ -11,7 +11,7 @@ import { db } from './firebase';
 //type
 import { userList } from '../app';
 export interface FireStoreType {
-  addUserInfo(data: { email: string }, uid: string): void;
+  addUserInfo(data: { email: string | undefined }, uid: string): void;
   addUserImage(uid: string, url: string): void;
   getUserInfo(
     uid: string,
@@ -73,6 +73,7 @@ class FireStore implements FireStoreType {
     });
     setUserList(data);
   };
+  static addUserInfo: any;
 }
 
 export default FireStore;

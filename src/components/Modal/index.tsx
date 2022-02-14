@@ -1,8 +1,16 @@
 import React, { useRef, useState } from 'react';
 import style from './modal.module.css';
 import googleLogin from '../../assets/image/btn_google_signin_light_normal_web.png';
+//type
+import { FireStoreType } from '../../shared/firestore';
+import { AuthServiceType } from '../../shared/login';
+interface ModalProps {
+  closeModal(): void;
+  authService: AuthServiceType;
+  fireStore: FireStoreType;
+}
 
-const Modal = ({ authService, closeModal, fireStore }: any) => {
+const Modal = ({ authService, closeModal, fireStore }: ModalProps) => {
   const emailRef = useRef<HTMLInputElement>(null);
   const passWordRef = useRef<HTMLInputElement>(null);
   const [visible, setVisible] = useState(true);
@@ -11,34 +19,23 @@ const Modal = ({ authService, closeModal, fireStore }: any) => {
   const signUpWithEmail = (e: React.MouseEvent<HTMLElement>) => {
     e.preventDefault();
     authService //
-      .signUpEmail(emailRef.current?.value, passWordRef.current?.value)
-      .then((result: { user: { uid: string } }) => {
-        const uid = result.user.uid;
-        fireStore.addUserInfo({ email: emailRef.current?.value }, uid);
-        result && window.alert('회원가입 완료');
-        setVisible(true);
-      })
-      .catch((error: { message: string; code: string }) => {
-        const errorCode = error.code;
-        console.log(errorCode);
-      });
+      .signUpEmail(
+        emailRef.current?.value,
+        passWordRef.current?.value,
+        setVisible,
+      );
   };
 
   const signInWithEmail = (e: React.MouseEvent<HTMLElement>) => {
     e.preventDefault();
     authService //
-      .signInEmail(emailRef.current?.value, passWordRef.current?.value)
-      .then((result: {}) => {
-        setIsEmailLogin(false);
-        setVisible(true);
-        closeModal();
-      })
-      .catch((error: { message: string; code: string }) => {
-        const errorCode = error.code;
-        if (errorCode === 'auth/wrong-password') {
-          window.alert('비밀번호가 잘 못 되었습니다.');
-        }
-      });
+      .signInEmail(
+        emailRef.current?.value,
+        passWordRef.current?.value,
+        setIsEmailLogin,
+        setVisible,
+        closeModal,
+      );
   };
 
   const handleSignUpClick = () => {
