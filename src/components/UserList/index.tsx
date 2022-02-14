@@ -9,11 +9,10 @@ interface UserListType {
   userList: DocumentData | userList[];
 }
 const UserList = ({ userList }: UserListType) => {
-  console.log(userList);
   return (
     <section className={style.userList}>
       {userList?.map((data: { email: string; url: string }) => {
-        return <User data={data} />;
+        return <User data={data} key={data.toString()} />;
       })}
     </section>
   );
