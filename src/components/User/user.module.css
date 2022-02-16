@@ -19,9 +19,16 @@
   padding: 0 3px;
 }
 
-.userStatus {
+.userOn {
   width: 10px;
   height: 10px;
   border-radius: 50%;
   background-color: rgb(28, 250, 28);
+}
+
+.userOff {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: rgb(92, 92, 92);
 }

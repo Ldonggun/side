@@ -5,7 +5,8 @@ import {
   onAuthStateChanged,
   signOut,
 } from 'firebase/auth';
-import FireStore from '../shared/firestore';
+import RealTimeDataBase from '../shared/realtimedatabase';
+const realTimeDataBase = new RealTimeDataBase();
 export interface AuthServiceType {
   signUpEmail(
     email: string | undefined,
@@ -33,14 +34,17 @@ class AuthService implements AuthServiceType {
   ) => {
     const auth = getAuth();
     createUserWithEmailAndPassword(auth, email, password)
-      .then((result: { user: { uid: string } }) => {
+      .then(result => {
         const uid = result.user.uid;
-        FireStore.addUserInfo({ email }, uid);
+        console.log(uid, email);
+        realTimeDataBase.setUserInfo(uid, email);
         result && window.alert('회원가입 완료');
         setVisible(true);
       })
-      .catch((error: { message: string; code: string }) => {
+      .catch(error => {
         const errorCode = error.code;
+        const errorMessage = error.message;
+        console.log(errorMessage);
         console.log(errorCode);
       });
   };
@@ -54,12 +58,14 @@ class AuthService implements AuthServiceType {
   ) => {
     const auth = getAuth();
     signInWithEmailAndPassword(auth, email, password)
-      .then((result: {}) => {
+      .then(result => {
+        const uid = result.user.uid;
+        realTimeDataBase.updateUserInfo(uid, undefined, true);
         setIsEmailLogin(false);
         setVisible(true);
         closeModal();
       })
-      .catch((error: { message: string; code: string }) => {
+      .catch(error => {
         const errorCode = error.code;
         if (errorCode === 'auth/wrong-password') {
           window.alert('비밀번호가 잘 못 되었습니다.');

@@ -5,13 +5,14 @@ import cameraImg from '../../assets/image/cameraIcon.jpg';
 
 interface UserSettingType {
   upload(file: File | null): void;
-  userInfo: { email: string; url: string };
+  userInfo: undefined | { email: string; url: string; uid: string };
 }
 const UserSetting = ({ upload, userInfo }: UserSettingType) => {
   const addImg = (e: React.ChangeEvent<HTMLInputElement>) => {
     const imageFile = e.target.files && e.target.files[0];
     upload(imageFile);
   };
+
   return (
     <div className={style.UserInfo}>
       <img

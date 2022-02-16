@@ -11,7 +11,7 @@ import { db } from './firebase';
 //type
 import { userList } from '../app';
 export interface FireStoreType {
-  addUserInfo(data: { email: string | undefined }, uid: string): void;
+  addUserInfo(email: string, uid: string): void;
   addUserImage(uid: string, url: string): void;
   getUserInfo(
     uid: string,
@@ -19,6 +19,7 @@ export interface FireStoreType {
       React.SetStateAction<{
         email: string;
         url: string;
+        uid: string;
       }>
     >,
   ): void;
@@ -29,7 +30,9 @@ export interface FireStoreType {
   ): void;
 }
 class FireStore implements FireStoreType {
-  addUserInfo = async (data: { email: string }, uid: string) => {
+  addUserInfo = async (email: string, uid: string) => {
+    const data = { email, uid };
+    console.log(data);
     await setDoc(doc(db, 'users', uid), data);
   };
 
@@ -46,6 +49,7 @@ class FireStore implements FireStoreType {
       React.SetStateAction<{
         email: string;
         url: string;
+        uid: string;
       }>
     >,
   ) => {
@@ -55,7 +59,7 @@ class FireStore implements FireStoreType {
     const url: string = docSnap.data()?.url;
 
     if (docSnap.exists()) {
-      setUserInfo({ email, url });
+      setUserInfo({ email, url, uid });
     } else {
       console.log('No such document');
     }
@@ -67,6 +71,7 @@ class FireStore implements FireStoreType {
     >,
   ) => {
     const querySnapshot = await getDocs(collection(db, 'users'));
+    // console.log(querySnapshot);
     const data: DocumentData | userList[] = [];
     querySnapshot.forEach(doc => {
       return data.push(doc.data());

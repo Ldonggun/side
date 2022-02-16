@@ -25,18 +25,15 @@ export type userList = {
 function App({ authService, realTimeDataBase, fireStore, upload }: AppProps) {
   const [visibleLoginModal, setVisibleLoginModal] = useState(false);
   const [visibleUserStatus, setVisibleUserStatus] = useState(false);
-  const [userList, setUserList] = useState<DocumentData | userList[]>([
-    { url: '', email: '' },
-  ]);
   const [uid, setUid] = useState(String);
-  const [userInfo, setUserInfo] = useState({ email: '', url: '' });
+  const [userInfo, setUserInfo] = useState();
   const [isLogin, setIsLogin] = useState(Boolean);
   const navigate = useNavigate();
 
   const logOut = () => {
     authService //
       .logOut();
-    if (uid) realTimeDataBase.userStatus(uid, 'logout');
+    realTimeDataBase.updateUserInfo(uid, undefined, false);
     navigate('/');
   };
   const openModal = () => {
@@ -52,16 +49,12 @@ function App({ authService, realTimeDataBase, fireStore, upload }: AppProps) {
   useEffect(() => {
     authService //
       .getUserInfo(setIsLogin, setUid);
-    realTimeDataBase //
-      .getLoginUser();
-  });
+  }, [authService]);
 
   useEffect(() => {
     if (uid) {
-      fireStore.getUserInfo(uid, setUserInfo);
-      realTimeDataBase.userStatus(uid, 'login');
+      realTimeDataBase.getLoginUser(uid, setUserInfo);
     }
-    fireStore.getAllUserInfo(setUserList);
   }, [uid, fireStore, realTimeDataBase]);
 
   return (
@@ -72,7 +65,7 @@ function App({ authService, realTimeDataBase, fireStore, upload }: AppProps) {
         isLogin={isLogin}
         logOut={logOut}
       />
-      {visibleUserStatus && <UserList userList={userList} />}
+      {visibleUserStatus && <UserList />}
       {visibleLoginModal && (
         <Modal
           authService={authService}
@@ -88,10 +81,9 @@ function App({ authService, realTimeDataBase, fireStore, upload }: AppProps) {
             element={
               <Setting
                 upload={upload}
-                fireStore={fireStore}
+                realTimeDataBase={realTimeDataBase}
                 uid={uid}
                 userInfo={userInfo}
-                setUserInfo={setUserInfo}
               />
             }
           />

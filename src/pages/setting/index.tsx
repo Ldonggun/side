@@ -5,31 +5,19 @@ import { UserSetting } from '../../components';
 //type
 import { UploadType } from '../../shared/upload';
 import { FireStoreType } from '../../shared/firestore';
+import { RealTimeDataBaseType } from '../../shared/realtimedatabase';
 interface SettingProps {
   upload: UploadType;
-  fireStore: FireStoreType;
-  userInfo: { email: string; url: string };
-  setUserInfo: React.Dispatch<
-    React.SetStateAction<{
-      email: string;
-      url: string;
-    }>
-  >;
+  realTimeDataBase: RealTimeDataBaseType;
+  userInfo: undefined | { email: string; url: string; uid: string };
   uid: string;
 }
 
-const Setting = ({
-  upload,
-  fireStore,
-  userInfo,
-  setUserInfo,
-  uid,
-}: SettingProps) => {
+const Setting = ({ upload, realTimeDataBase, userInfo, uid }: SettingProps) => {
   const uploadImage = async (file: File | null) => {
     const uploaded = await upload.imageUpload(file);
     const url = uploaded.url;
-    setUserInfo({ ...userInfo, url });
-    fireStore.addUserImage(uid, url);
+    realTimeDataBase.updateUserInfo(uid, url);
   };
 
   return (

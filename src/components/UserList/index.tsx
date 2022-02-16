@@ -1,18 +1,22 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import style from './userlist.module.css';
 //component
 import { User } from '../index';
-//type
-import { userList } from '../../app';
-import { DocumentData } from 'firebase/firestore';
+//class
+import RealTimeDataBase from '../../shared/realtimedatabase';
 interface UserListType {
-  userList: DocumentData | userList[];
+  userList: undefined;
 }
-const UserList = ({ userList }: UserListType) => {
+const realTimeDataBase = new RealTimeDataBase();
+const UserList = () => {
+  const [userList, setUserList] = useState(Object);
+  useEffect(() => {
+    realTimeDataBase.getUserList(setUserList);
+  }, []);
   return (
     <section className={style.userList}>
-      {userList?.map((data: { email: string; url: string }) => {
-        return <User data={data} key={data.toString()} />;
+      {Object.keys(userList).map(key => {
+        return <User data={userList[key]} key={key} />;
       })}
     </section>
   );
