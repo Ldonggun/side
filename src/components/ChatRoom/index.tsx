@@ -1,7 +1,7 @@
 import React from 'react';
 import style from './chatroom.module.css';
 //components
-import { ChatLog } from '../index';
+import { ChatLog, ChatInput } from '../index';
 interface PropsChatRoom {
   chatUser: {
     email: string;
@@ -20,6 +20,9 @@ const ChatRoom = ({ chatUser }: PropsChatRoom) => {
       </section>
       <section className={style.chatLog}>
         <ChatLog />
+      </section>
+      <section className={style.chatInput}>
+        <ChatInput />
       </section>
     </div>
   );

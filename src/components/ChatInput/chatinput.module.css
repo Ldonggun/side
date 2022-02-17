@@ -1,0 +1,18 @@
+.chatForm {
+  width: 100%;
+  padding: 6px;
+  box-sizing: border-box;
+}
+
+.container {
+  display: flex;
+  width: 100%;
+}
+
+.container > input {
+  width: 100%;
+}
+
+.btn {
+  padding: 8px;
+}

@@ -6,4 +6,15 @@ import UserSetting from './UserSetting';
 import ChatRoom from './ChatRoom';
 import ChatLog from './ChatLog';
 import Chat from './Chat';
-export { Modal, NavBar, UserList, User, UserSetting, ChatRoom, ChatLog, Chat };
+import ChatInput from './ChatInput';
+export {
+  Modal,
+  NavBar,
+  UserList,
+  User,
+  UserSetting,
+  ChatRoom,
+  ChatLog,
+  Chat,
+  ChatInput,
+};
