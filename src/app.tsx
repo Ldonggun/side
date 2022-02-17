@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import style from './app.module.css';
 import { Routes, Route, useNavigate } from 'react-router-dom';
 //components
-import { Modal, NavBar, UserList } from './components/index';
+import { Modal, NavBar, UserList, ChatRoom } from './components/index';
 //page
 import { Home, Setting } from './pages/index';
 //type
@@ -10,7 +10,6 @@ import { FireStoreType } from './shared/firestore';
 import { AuthServiceType } from './shared/login';
 import { RealTimeDataBaseType } from './shared/realtimedatabase';
 import { UploadType } from './shared/upload';
-import { DocumentData } from 'firebase/firestore';
 
 export interface AppProps {
   authService: AuthServiceType;
@@ -25,8 +24,10 @@ export type userList = {
 function App({ authService, realTimeDataBase, fireStore, upload }: AppProps) {
   const [visibleLoginModal, setVisibleLoginModal] = useState(false);
   const [visibleUserStatus, setVisibleUserStatus] = useState(false);
+  const [visibleChatRoom, setVisibleChatRoom] = useState(false);
   const [uid, setUid] = useState(String);
   const [userInfo, setUserInfo] = useState();
+  const [chatUser, setChatUser] = useState(Object);
   const [isLogin, setIsLogin] = useState(Boolean);
   const navigate = useNavigate();
 
@@ -44,6 +45,14 @@ function App({ authService, realTimeDataBase, fireStore, upload }: AppProps) {
   };
   const openUser = () => {
     setVisibleUserStatus(!visibleUserStatus);
+  };
+  const openChatRoom = (data: {
+    email: string;
+    url: string;
+    status: boolean;
+  }) => {
+    setVisibleChatRoom(true);
+    setChatUser(data);
   };
 
   useEffect(() => {
@@ -65,7 +74,7 @@ function App({ authService, realTimeDataBase, fireStore, upload }: AppProps) {
         isLogin={isLogin}
         logOut={logOut}
       />
-      {visibleUserStatus && <UserList />}
+      {visibleUserStatus && <UserList openChatRoom={openChatRoom} />}
       {visibleLoginModal && (
         <Modal
           authService={authService}
@@ -73,6 +82,8 @@ function App({ authService, realTimeDataBase, fireStore, upload }: AppProps) {
           fireStore={fireStore}
         />
       )}
+      {openChatRoom}
+      {visibleChatRoom && <ChatRoom chatUser={chatUser} />}
       <div className={style.wrap}>
         <Routes>
           <Route path='/' element={<Home />} />

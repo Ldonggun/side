@@ -2,8 +2,13 @@
   display: flex;
   justify-content: space-evenly;
   align-items: center;
+  border-radius: 8px;
   padding: 6px;
   cursor: pointer;
+}
+
+.user:hover {
+  background-color: rgb(246, 246, 246);
 }
 
 .userImg {

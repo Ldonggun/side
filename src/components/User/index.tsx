@@ -3,11 +3,18 @@ import style from './user.module.css';
 import defaultImg from '../../assets/image/defaultimg.jpg';
 interface UserType {
   data: { email: string; url: string; status: boolean };
+  openChatRoom(data: { email: string; url: string; status: boolean }): void;
 }
-const User = ({ data }: UserType) => {
-  console.log(data);
+const User = ({ data, openChatRoom }: UserType) => {
+  const enterChatRoom = () => {
+    console.log('방입장');
+    // console.log(data.url);
+    // console.log(data.email);
+    // console.log(data.status);
+    openChatRoom(data);
+  };
   return (
-    <div className={style.user}>
+    <div className={style.user} onClick={enterChatRoom}>
       <img
         src={data.url ? data.url : defaultImg}
         alt='userImage'
