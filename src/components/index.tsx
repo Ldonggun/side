@@ -4,4 +4,5 @@ import UserList from './UserList';
 import User from './User';
 import UserSetting from './UserSetting';
 import ChatRoom from './ChatRoom';
-export { Modal, NavBar, UserList, User, UserSetting, ChatRoom };
+import ChatLog from './ChatLog';
+export { Modal, NavBar, UserList, User, UserSetting, ChatRoom, ChatLog };
