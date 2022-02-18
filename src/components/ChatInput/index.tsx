@@ -11,8 +11,10 @@ interface PropChatInput {
 const ChatInput = ({ sendMessage }: PropChatInput) => {
   const inputRef = useRef<HTMLInputElement>(null);
   const onSubmit = () => {
-    const message = inputRef.current && inputRef.current.value;
-    if (message) sendMessage(message);
+    if (inputRef.current?.value) {
+      sendMessage(inputRef.current.value);
+      inputRef.current.value = '';
+    }
   };
   const pressEnter = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key !== 'Enter') return;
