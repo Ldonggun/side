@@ -14,9 +14,9 @@ const Chat = ({ message, chatUser }: PropChat) => {
   return (
     <>
       {message?.sender === chatUser.email ? (
-        <div className={style.container}>
+        <div className={style.otherContainer}>
           <img className={style.img} src={chatUser.url} alt='상대방' />
-          <p className={style.message}>{message?.text}</p>
+          <p className={style.oterhMessage}>{message?.text}</p>
         </div>
       ) : (
         <div className={style.container}>

@@ -1,11 +1,16 @@
 .container {
   width: 100%;
-  border: 1px solid black;
+  box-sizing: border-box;
+  display: flex;
+  padding: 6px;
+  justify-content: end;
+}
+.otherContainer {
+  width: 100%;
   box-sizing: border-box;
   display: flex;
   padding: 6px;
 }
-
 .img {
   width: 20px;
   height: 20px;
@@ -14,7 +19,18 @@
 }
 
 .message {
+  min-width: 18px;
   margin: 0;
-
   padding: 3px;
+  font-size: 10px;
+  background-color: rgba(196, 255, 210, 0.555);
+  border-radius: 6px;
+}
+
+.oterhMessage {
+  margin: 0;
+  padding: 3px;
+  font-size: 10px;
+  background-color: rgba(184, 184, 184, 0.431);
+  border-radius: 6px;
 }
