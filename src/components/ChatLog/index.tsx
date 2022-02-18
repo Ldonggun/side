@@ -2,11 +2,25 @@ import React from 'react';
 import style from './chatlog.module.css';
 //component
 import { Chat } from '../index';
-const ChatLog = () => {
+
+interface PropChatLog {
+  message: { [key: string]: string };
+  chatUser: {
+    email: string;
+    url: string;
+    status: boolean;
+  };
+}
+
+const ChatLog = ({ message, chatUser }: PropChatLog) => {
+  console.log(message);
   return (
     <div className={style.container}>
-      <Chat />
-      {/* <p>ChatLog</p> */}
+      {message &&
+        Object.keys(message).map(key => {
+          const value: {} = message[key];
+          return <Chat message={value} key={key} chatUser={chatUser} />;
+        })}
     </div>
   );
 };

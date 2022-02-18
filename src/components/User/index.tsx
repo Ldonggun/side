@@ -8,9 +8,6 @@ interface UserType {
 const User = ({ data, openChatRoom }: UserType) => {
   const enterChatRoom = () => {
     console.log('방입장');
-    // console.log(data.url);
-    // console.log(data.email);
-    // console.log(data.status);
     openChatRoom(data);
   };
   return (

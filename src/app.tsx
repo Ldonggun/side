@@ -26,11 +26,10 @@ function App({ authService, realTimeDataBase, fireStore, upload }: AppProps) {
   const [visibleUserStatus, setVisibleUserStatus] = useState(false);
   const [visibleChatRoom, setVisibleChatRoom] = useState(false);
   const [uid, setUid] = useState(String);
-  const [userInfo, setUserInfo] = useState();
+  const [userInfo, setUserInfo] = useState(Object);
   const [chatUser, setChatUser] = useState(Object);
   const [isLogin, setIsLogin] = useState(Boolean);
   const navigate = useNavigate();
-
   const logOut = () => {
     authService //
       .logOut();
@@ -53,6 +52,11 @@ function App({ authService, realTimeDataBase, fireStore, upload }: AppProps) {
   }) => {
     setVisibleChatRoom(true);
     setChatUser(data);
+    realTimeDataBase.setChat(
+      userInfo.email,
+      data.email,
+      `${userInfo.email}님이 방에입장했습니다.`,
+    );
   };
 
   useEffect(() => {
@@ -82,8 +86,13 @@ function App({ authService, realTimeDataBase, fireStore, upload }: AppProps) {
           fireStore={fireStore}
         />
       )}
-      {openChatRoom}
-      {visibleChatRoom && <ChatRoom chatUser={chatUser} />}
+      {visibleChatRoom && (
+        <ChatRoom
+          chatUser={chatUser}
+          userInfo={userInfo}
+          realTimeDataBase={realTimeDataBase}
+        />
+      )}
       <div className={style.wrap}>
         <Routes>
           <Route path='/' element={<Home />} />

@@ -6,11 +6,20 @@ export interface RealTimeDataBaseType {
   ): void;
   setUserInfo(uid: string, email?: string, url?: string): void;
   updateUserInfo(uid: string, url?: string, status?: boolean): void;
+  setChat(myEmial: string, otherEmail: string, text: string): void;
+  getChatLog(
+    myEmail: string,
+    otherEmail: string,
+    setMessage: React.Dispatch<
+      React.SetStateAction<
+        | {
+            [key: string]: string;
+          }
+        | undefined
+      >
+    >,
+  ): void;
 }
-
-type ObjType = {
-  [key: string]: string;
-};
 
 class RealTimeDataBase implements RealTimeDataBaseType {
   getLoginUser = (
@@ -61,6 +70,46 @@ class RealTimeDataBase implements RealTimeDataBaseType {
       setUserList(data);
     });
   }
+
+  setChat = (myEmail: string, otherEmail: string, text: string) => {
+    const db = getDatabase();
+    const message = { sender: myEmail, text };
+    const roomName = [
+      myEmail.slice(0, myEmail.indexOf('@')),
+      otherEmail.slice(0, otherEmail.indexOf('@')),
+    ]
+      .sort()
+      .join('');
+    const dt = new Date();
+    const uid = dt.setDate(dt.getDate() + Math.floor(Math.random()));
+    set(ref(db, `chatroom/${roomName}/${uid}`), message);
+  };
+
+  getChatLog = (
+    myEmail: string,
+    otherEmail: string,
+    setMessage: React.Dispatch<
+      React.SetStateAction<
+        | {
+            [key: string]: string;
+          }
+        | undefined
+      >
+    >,
+  ) => {
+    const db = getDatabase();
+    const roomName = [
+      myEmail.slice(0, myEmail.indexOf('@')),
+      otherEmail.slice(0, otherEmail.indexOf('@')),
+    ]
+      .sort()
+      .join('');
+    const chatLogRef = ref(db, `chatroom/${roomName}`);
+    onValue(chatLogRef, snapshot => {
+      const data = snapshot.val();
+      if (data) setMessage(data);
+    });
+  };
 }
 
 export default RealTimeDataBase;
