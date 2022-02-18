@@ -91,6 +91,7 @@ function App({ authService, realTimeDataBase, fireStore, upload }: AppProps) {
           chatUser={chatUser}
           userInfo={userInfo}
           realTimeDataBase={realTimeDataBase}
+          setVisibleChatRoom={setVisibleChatRoom}
         />
       )}
       <div className={style.wrap}>
