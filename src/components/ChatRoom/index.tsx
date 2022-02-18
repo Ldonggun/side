@@ -35,12 +35,10 @@ const ChatRoom = ({ chatUser, userInfo, realTimeDataBase }: PropsChatRoom) => {
         <p>{chatUser?.email}</p>
         <p>{chatUser?.status ? '온라인' : '오프라인'}</p>
       </section>
-      <section className={style.chatLog}>
-        {message && <ChatLog message={message} chatUser={chatUser} />}
-      </section>
-      <section className={style.chatInput}>
-        <ChatInput sendMessage={sendMessage} />
-      </section>
+
+      {message && <ChatLog message={message} chatUser={chatUser} />}
+
+      <ChatInput sendMessage={sendMessage} />
     </div>
   );
 };
