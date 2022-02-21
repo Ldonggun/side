@@ -77,7 +77,9 @@ function App({ authService, realTimeDataBase, fireStore, upload }: AppProps) {
         uid={uid}
         logOut={logOut}
       />
-      {visibleUserStatus && <UserList openChatRoom={openChatRoom} />}
+      {visibleUserStatus && (
+        <UserList openChatRoom={openChatRoom} userInfo={userInfo} />
+      )}
       {visibleLoginModal && (
         <Modal
           authService={authService}

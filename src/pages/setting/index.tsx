@@ -4,7 +4,6 @@ import style from './setting.module.css';
 import { UserSetting } from '../../components';
 //type
 import { UploadType } from '../../shared/upload';
-import { FireStoreType } from '../../shared/firestore';
 import { RealTimeDataBaseType } from '../../shared/realtimedatabase';
 interface SettingProps {
   upload: UploadType;

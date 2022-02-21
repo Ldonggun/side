@@ -7,7 +7,6 @@ interface UserType {
 }
 const User = ({ data, openChatRoom }: UserType) => {
   const enterChatRoom = () => {
-    console.log('방입장');
     openChatRoom(data);
   };
   return (
