@@ -20,10 +20,7 @@ export interface AuthServiceType {
     setVisible: React.Dispatch<React.SetStateAction<boolean>>,
     closeModal: () => void,
   ): void;
-  getUserInfo(
-    setIsLogin: (value: boolean) => void,
-    setUid: (uid: string) => void,
-  ): void;
+  getUserInfo(setUid: (uid: string) => void): void;
   logOut(): void;
 }
 class AuthService implements AuthServiceType {
@@ -73,18 +70,12 @@ class AuthService implements AuthServiceType {
       });
   };
 
-  getUserInfo = (
-    setIsLogin: (value: boolean) => void,
-    setUid: (uid: string) => void,
-  ) => {
+  getUserInfo = (setUid: (uid: string) => void) => {
     const auth = getAuth();
     onAuthStateChanged(auth, user => {
       if (user) {
         const uid = user.uid;
-        setIsLogin(true);
         setUid(uid);
-      } else {
-        setIsLogin(false);
       }
     });
   };

@@ -11,14 +11,14 @@ import {
 interface NavBarType {
   openModal: () => void;
   openUser: () => void;
-  isLogin: Boolean;
+  uid: string;
   logOut: () => void;
 }
-const NavBar = ({ openModal, openUser, isLogin, logOut }: NavBarType) => {
+const NavBar = ({ openModal, openUser, uid, logOut }: NavBarType) => {
   const navigate = useNavigate();
 
   const moveSetting = () => {
-    if (isLogin) navigate('/setting');
+    if (uid) navigate('/setting');
     else window.alert('로그인이 필요합니다');
   };
   const moveHome = () => {
@@ -31,9 +31,9 @@ const NavBar = ({ openModal, openUser, isLogin, logOut }: NavBarType) => {
           <FontAwesomeIcon icon={faHome} size='2x' />
           <p>홈</p>
         </li>
-        <li className={style.element} onClick={isLogin ? logOut : openModal}>
+        <li className={style.element} onClick={uid ? logOut : openModal}>
           <FontAwesomeIcon icon={faSignInAlt} size='2x' />
-          {isLogin ? <p>로그아웃</p> : <p>로그인</p>}
+          {uid ? <p>로그아웃</p> : <p>로그인</p>}
         </li>
         <li className={style.element} onClick={openUser}>
           <FontAwesomeIcon icon={faUser} size='2x' />

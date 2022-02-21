@@ -28,7 +28,6 @@ function App({ authService, realTimeDataBase, fireStore, upload }: AppProps) {
   const [uid, setUid] = useState(String);
   const [userInfo, setUserInfo] = useState(Object);
   const [chatUser, setChatUser] = useState(Object);
-  const [isLogin, setIsLogin] = useState(Boolean);
   const navigate = useNavigate();
   const logOut = () => {
     authService //
@@ -61,7 +60,7 @@ function App({ authService, realTimeDataBase, fireStore, upload }: AppProps) {
 
   useEffect(() => {
     authService //
-      .getUserInfo(setIsLogin, setUid);
+      .getUserInfo(setUid);
   }, [authService]);
 
   useEffect(() => {
@@ -75,7 +74,7 @@ function App({ authService, realTimeDataBase, fireStore, upload }: AppProps) {
       <NavBar
         openModal={openModal}
         openUser={openUser}
-        isLogin={isLogin}
+        uid={uid}
         logOut={logOut}
       />
       {visibleUserStatus && <UserList openChatRoom={openChatRoom} />}
