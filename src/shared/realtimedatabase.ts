@@ -62,7 +62,7 @@ class RealTimeDataBase implements RealTimeDataBaseType {
     });
   }
 
-  getUserList(setUserList: ({}) => void) {
+  getUserList(setUserList: (data: { [key: string]: string }) => void) {
     const db = getDatabase();
     const userListRef = ref(db, 'users/');
     onValue(userListRef, snapshot => {

@@ -4,13 +4,13 @@ import googleLogin from '../../assets/image/btn_google_signin_light_normal_web.p
 //type
 import { FireStoreType } from '../../shared/firestore';
 import { AuthServiceType } from '../../shared/login';
-interface ModalProps {
+interface PropModal {
   closeModal(): void;
   authService: AuthServiceType;
   fireStore: FireStoreType;
 }
 
-const Modal = ({ authService, closeModal, fireStore }: ModalProps) => {
+const Modal = ({ authService, closeModal, fireStore }: PropModal) => {
   const emailRef = useRef<HTMLInputElement>(null);
   const passWordRef = useRef<HTMLInputElement>(null);
   const [visible, setVisible] = useState(true);
@@ -89,10 +89,6 @@ const Modal = ({ authService, closeModal, fireStore }: ModalProps) => {
       </div>
     </>
   );
-};
-
-const Email = () => {
-  return {};
 };
 
 export default Modal;

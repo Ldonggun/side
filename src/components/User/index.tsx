@@ -1,11 +1,11 @@
 import React from 'react';
 import style from './user.module.css';
 import defaultImg from '../../assets/image/defaultimg.jpg';
-interface UserType {
-  data: { email: string; url: string; status: boolean };
-  openChatRoom(data: { email: string; url: string; status: boolean }): void;
+interface PropUser {
+  data: { [key: string]: string };
+  openChatRoom(data: { [key: string]: string }): void;
 }
-const User = ({ data, openChatRoom }: UserType) => {
+const User = ({ data, openChatRoom }: PropUser) => {
   const enterChatRoom = () => {
     openChatRoom(data);
   };

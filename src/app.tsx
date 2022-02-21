@@ -44,11 +44,7 @@ function App({ authService, realTimeDataBase, fireStore, upload }: AppProps) {
   const openUser = () => {
     setVisibleUserStatus(!visibleUserStatus);
   };
-  const openChatRoom = (data: {
-    email: string;
-    url: string;
-    status: boolean;
-  }) => {
+  const openChatRoom = (data: { [key: string]: string }) => {
     setVisibleChatRoom(true);
     setChatUser(data);
     realTimeDataBase.setChat(

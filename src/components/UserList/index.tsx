@@ -4,12 +4,12 @@ import style from './userlist.module.css';
 import { User } from '../index';
 //class
 import RealTimeDataBase from '../../shared/realtimedatabase';
-interface UserListType {
-  openChatRoom(data: { email: string; url: string; status: boolean }): void;
+interface PropUserList {
+  openChatRoom(data: { [key: string]: string }): void;
   userInfo: { [key: string]: string };
 }
 const realTimeDataBase = new RealTimeDataBase();
-const UserList = ({ openChatRoom, userInfo }: UserListType) => {
+const UserList = ({ openChatRoom, userInfo }: PropUserList) => {
   const [userList, setUserList] = useState(Object);
   useEffect(() => {
     realTimeDataBase.getUserList(setUserList);

@@ -8,13 +8,13 @@ import {
   faUser,
   faCog,
 } from '@fortawesome/free-solid-svg-icons';
-interface NavBarType {
+interface PropNavBar {
   openModal: () => void;
   openUser: () => void;
   uid: string;
   logOut: () => void;
 }
-const NavBar = ({ openModal, openUser, uid, logOut }: NavBarType) => {
+const NavBar = ({ openModal, openUser, uid, logOut }: PropNavBar) => {
   const navigate = useNavigate();
 
   const moveSetting = () => {
