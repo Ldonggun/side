@@ -8,15 +8,17 @@ import {
   faUser,
   faCog,
 } from '@fortawesome/free-solid-svg-icons';
+//image
+import defaultImg from '../../assets/image/defaultimg.jpg';
 interface PropNavBar {
   openModal: () => void;
   openUser: () => void;
   uid: string;
   logOut: () => void;
+  userInfo: { [key: string]: string };
 }
-const NavBar = ({ openModal, openUser, uid, logOut }: PropNavBar) => {
+const NavBar = ({ openModal, openUser, uid, logOut, userInfo }: PropNavBar) => {
   const navigate = useNavigate();
-
   const moveSetting = () => {
     if (uid) navigate('/setting');
     else window.alert('로그인이 필요합니다');
@@ -24,9 +26,17 @@ const NavBar = ({ openModal, openUser, uid, logOut }: PropNavBar) => {
   const moveHome = () => {
     navigate('/');
   };
+  console.log(userInfo);
   return (
     <nav className={style.navBar}>
       <ul className={style.category}>
+        <li className={style.element} onClick={moveSetting}>
+          <img
+            src={userInfo ? userInfo.url : defaultImg}
+            className={style.img}
+            alt='userimg'
+          />
+        </li>
         <li className={style.element} onClick={moveHome}>
           <FontAwesomeIcon icon={faHome} size='2x' />
           <p>홈</p>

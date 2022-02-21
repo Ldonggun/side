@@ -33,8 +33,11 @@ function App({ authService, realTimeDataBase, fireStore, upload }: AppProps) {
     authService //
       .logOut();
     realTimeDataBase.updateUserInfo(uid, undefined, false);
+    setUid('');
     navigate('/');
   };
+  console.log(userInfo);
+  console.log(uid);
   const openModal = () => {
     setVisibleLoginModal(true);
   };
@@ -62,8 +65,10 @@ function App({ authService, realTimeDataBase, fireStore, upload }: AppProps) {
   useEffect(() => {
     if (uid) {
       realTimeDataBase.getLoginUser(uid, setUserInfo);
+    } else {
+      setUserInfo(null);
     }
-  }, [uid, fireStore, realTimeDataBase]);
+  }, [uid]);
 
   return (
     <>
@@ -72,6 +77,7 @@ function App({ authService, realTimeDataBase, fireStore, upload }: AppProps) {
         openUser={openUser}
         uid={uid}
         logOut={logOut}
+        userInfo={userInfo}
       />
       {visibleUserStatus && (
         <UserList openChatRoom={openChatRoom} userInfo={userInfo} />
